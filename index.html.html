@@ -1,0 +1,164 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>მთავარი გვერდი</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            overflow-x: hidden; /* სვეტური სრიალი */
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            position: relative;
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 2px;
+            background: #fff;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: bottom right;
+        }
+        nav ul li a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        .hero {
+            background: url('your-image.jpg') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero h1, .hero p {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease-out;
+        }
+        .hero h1.show, .hero p.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .section {
+            padding: 60px 20px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .button:hover {
+            background-color: #555;
+            transform: scale(1.05);
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ტელეფონის აპლიკაციების საიტი</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">მთავარი</a></li>
+                <li><a href="TechApps.html">აპლიკაციები</a></li>
+                <li><a href="#contact">კონტაქტი</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="home" class="hero">
+        <h1 class="show">მოგესალმებით!</h1>
+        <p class="show">გამოიძიეთ საუკეთესო ტელეფონის აპლიკაციები აქ!</p>
+    </div>
+
+    <div id="apps" class="section">
+        <h2>აპლიკაციები</h2>
+        <p>ჩვენ ვაწვდით ინფორმაციას უახლესი აპლიკაციების შესახებ.</p>
+        <a href="#contact" class="button">დაგვიკავშირდით</a>
+    </div>
+
+    <div id="contact" class="section">
+        <h2>კონტაქტი</h2>
+        <p>დაგვიკავშირდით <a href="mailto:info@example.com">info@example.com</a></p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 ტელეფონის აპლიკაციების საიტი</p>
+    </footer>
+
+    <!-- GSAP JavaScript Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script>
+        // GSAP Animation for Hero Section
+        gsap.to(".hero h1", { duration: 2, opacity: 1, y: 0, ease: "bounce", delay: 0.5 });
+        gsap.to(".hero p", { duration: 2, opacity: 1, y: 0, ease: "bounce", delay: 1 });
+
+        // GSAP Animation for Sections
+        const sections = document.querySelectorAll('.section');
+
+        function animateSections() {
+            const triggerPoint = window.innerHeight / 1.5;
+
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                if (sectionTop < triggerPoint) {
+                    section.classList.add('active');
+                } else {
+                    section.classList.remove('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateSections);
+        animateSections(); // Initial check
+    </script>
+</body>
+</html>
